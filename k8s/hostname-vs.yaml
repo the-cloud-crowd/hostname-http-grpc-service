@@ -1,0 +1,30 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  labels:
+    app: hostname
+  name: hostname-vs
+  namespace: default
+spec:
+  gateways:
+  - istio-system/gateway
+  - mesh
+  hosts:
+  - "*"
+  http:
+  - match:
+    - uri:
+        prefix: /hostname.HostnameService
+    route:
+    - destination:
+        host: hostname
+        port:
+          number: 50051
+  - match:
+    - uri:
+        prefix: /hostname
+    route:
+    - destination:
+        host: hostname
+        port:
+          number: 8080
