@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "x.hostname.grpc.proto";
+option java_outer_classname = "HostnameProto";
+option objc_class_prefix = "HN";
+
+package hostname;
+
+service HostnameService {
+  rpc GetHostname (HostnameRequest) returns (HostnameReply) {}
+}
+
+message HostnameRequest {
+  string sender = 1;
+}
+
+message HostnameReply {
+  string hostname = 1;
+}
