@@ -3,16 +3,16 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "x.hostname.grpc.proto";
 option java_outer_classname = "HostnameProto";
-option objc_class_prefix = "HN";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 
 package hostname;
 
 service HostnameService {
-  rpc GetHostname (HostnameRequest) returns (HostnameReply) {}
-}
-
-message HostnameRequest {
-  string sender = 1;
+  rpc GetHostname (google.protobuf.Empty) returns (HostnameReply) {
+    option (google.api.http) = { get: "/hostname" };
+  }
 }
 
 message HostnameReply {

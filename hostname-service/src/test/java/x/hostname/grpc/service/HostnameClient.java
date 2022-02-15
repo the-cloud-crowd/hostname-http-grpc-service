@@ -2,13 +2,14 @@ package x.hostname.grpc.service;
 
 import java.util.concurrent.Executor;
 
+import com.google.protobuf.Empty;
+
 import io.grpc.CallCredentials;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Metadata;
 import io.grpc.Status;
 import x.hostname.grpc.proto.HostnameReply;
-import x.hostname.grpc.proto.HostnameRequest;
 import x.hostname.grpc.proto.HostnameServiceGrpc;
 
 public class HostnameClient {
@@ -34,7 +35,7 @@ public class HostnameClient {
             // metadata.put(keyUserId, "john");
             // MetadataUtils.attachHeaders(blockingStub, metadata);
 
-            HostnameReply reply = blockingStub.getHostname(HostnameRequest.newBuilder().setSender("john").build());
+            HostnameReply reply = blockingStub.getHostname(Empty.getDefaultInstance());
 
             System.out.println(reply);
         }

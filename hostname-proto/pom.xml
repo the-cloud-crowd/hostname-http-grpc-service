@@ -64,6 +64,11 @@
               <goal>compile</goal>
               <goal>compile-custom</goal>
             </goals>
+            <configuration>
+              <writeDescriptorSet>true</writeDescriptorSet>
+              <includeDependenciesInDescriptorSet>true</includeDependenciesInDescriptorSet>
+              <attachDescriptorSet>true</attachDescriptorSet>            
+            </configuration>
           </execution>
         </executions>
       </plugin>

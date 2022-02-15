@@ -7,11 +7,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.google.protobuf.Empty;
+
 import io.grpc.inprocess.InProcessChannelBuilder;
 import io.grpc.inprocess.InProcessServerBuilder;
 import io.grpc.testing.GrpcCleanupRule;
 import x.hostname.grpc.proto.HostnameReply;
-import x.hostname.grpc.proto.HostnameRequest;
 import x.hostname.grpc.proto.HostnameServiceGrpc;
 
 /**
@@ -34,7 +35,7 @@ public class HostnameTest {
                 .build()
                 .start());
 
-        HostnameReply reply = blockingStub.getHostname(HostnameRequest.newBuilder().build());
+        HostnameReply reply = blockingStub.getHostname(Empty.getDefaultInstance());
         assertNotNull(reply.getHostname());
     }
 

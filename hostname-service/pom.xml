@@ -75,7 +75,7 @@
     </dependency>
   </dependencies>
 
-<!--
+
   <build>
     <plugins>
       <plugin>
@@ -86,7 +86,7 @@
           <execution>
             <phase>package</phase>
             <goals>
-              <goal>build</goal>
+              <goal>dockerBuild</goal>
             </goals>
             <configuration>
               <allowInsecureRegistries>true</allowInsecureRegistries>
@@ -98,7 +98,7 @@
                 <jvmFlag>-XX:MaxRAMPercentage=70.0</jvmFlag>
               </jvmFlags>
               <container>
-                <mainClass>x.hostname.service.HostnameServer</mainClass>
+                <mainClass>x.hostname.service.HostnameServerGrpcOnly</mainClass>
               </container>
             </configuration>
           </execution>
@@ -106,5 +106,5 @@
       </plugin>
     </plugins>
   </build>
--->
+
 </project>
