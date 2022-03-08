@@ -64,6 +64,9 @@
             </goals>
             <configuration>
               <allowInsecureRegistries>true</allowInsecureRegistries>
+              <from>
+                <image>eclipse-temurin:11-jre</image>
+              </from>
               <to>
                 <image>${env.REGISTRY}/${env.REGISTRY_REPOSITORY}/${project.artifactId}:${project.version}</image>
                 <auth>
