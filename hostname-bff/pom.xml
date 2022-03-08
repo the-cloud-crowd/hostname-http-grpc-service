@@ -10,11 +10,6 @@
   <artifactId>hostname-bff</artifactId>
   <name>Hostname BFF</name>
 
-
-  <properties>
-    <java.version>11</java.version>
-  </properties>
-
   <dependencies>
 
     <dependency>

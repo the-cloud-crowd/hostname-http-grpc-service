@@ -9,11 +9,6 @@
 
   <artifactId>hostname-service</artifactId>
   <name>Hostname Service</name>
-  
-  
-  <properties>
-    <java.version>11</java.version>
-  </properties>
 
   <dependencies>
 
