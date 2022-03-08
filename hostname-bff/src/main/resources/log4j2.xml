@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" strict="true">
+  <Appenders>
+    <Appender type="Console" name="Console" target="SYSTEM_OUT">
+        <Layout type="JsonLayout" compact="true" eventEol="true" properties="true" />
+    </Appender>
+  </Appenders>
+  <Loggers>
+    <Root level="${env:LOG_LEVEL:-info}" includeLocation="false">
+      <AppenderRef ref="Console" />
+    </Root>
+    <!-- Configure separately -->
+    <Logger name="org.eclipse.jetty" level="${env:SERVER_LOG_LEVEL:-warn}" includeLocation="false"/>
+    <Logger name="io.grpc.netty" level="${env:SERVER_LOG_LEVEL:-warn}" includeLocation="false"/>
+    <Logger name="spark" level="${env:SERVER_LOG_LEVEL:-warn}" includeLocation="false"/>   
+  </Loggers>
+</Configuration>

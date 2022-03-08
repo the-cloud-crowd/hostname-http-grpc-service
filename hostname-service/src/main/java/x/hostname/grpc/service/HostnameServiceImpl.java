@@ -9,7 +9,7 @@ import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
 import x.hostname.grpc.proto.HostnameReply;
 import x.hostname.grpc.proto.HostnameServiceGrpc.HostnameServiceImplBase;
-import x.hostname.service.HostnameUtils;
+import x.hostname.grpc.utils.HostnameUtils;
 
 public final class HostnameServiceImpl extends HostnameServiceImplBase {
 

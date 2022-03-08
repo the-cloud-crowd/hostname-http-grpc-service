@@ -1,4 +1,4 @@
-package x.hostname.service;
+package x.hostname.grpc.utils;
 
 import java.io.IOException;
 import java.net.InetAddress;

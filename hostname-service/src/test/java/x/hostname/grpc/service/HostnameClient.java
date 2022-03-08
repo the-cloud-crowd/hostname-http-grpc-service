@@ -1,16 +1,12 @@
 package x.hostname.grpc.service;
 
-import java.util.concurrent.Executor;
-
 import com.google.protobuf.Empty;
 
-import io.grpc.CallCredentials;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.Metadata;
-import io.grpc.Status;
 import x.hostname.grpc.proto.HostnameReply;
 import x.hostname.grpc.proto.HostnameServiceGrpc;
+import x.hostname.grpc.utils.UserIdCallCredential;
 
 public class HostnameClient {
 
@@ -18,6 +14,7 @@ public class HostnameClient {
 
         if (args == null || args.length < 1) {
             System.out.println("Target parameter is missing");
+            return;
         }
         String target = args[0];
 
@@ -43,34 +40,4 @@ public class HostnameClient {
         channel.shutdown();
     }
 
-    public static class UserIdCallCredential extends CallCredentials {
-
-        private final String userId;
-
-        public UserIdCallCredential(String userId) {
-            this.userId = userId;
-        }
-
-        @Override
-        public void applyRequestMetadata(RequestInfo requestInfo, Executor executor, MetadataApplier metadataApplier) {
-            executor.execute(new Runnable() {
-
-                @Override
-                public void run() {
-                    try {
-                        Metadata headers = new Metadata();
-                        Metadata.Key<String> userIdKey = Metadata.Key.of("X-UserId", Metadata.ASCII_STRING_MARSHALLER);
-                        headers.put(userIdKey, userId);
-                        metadataApplier.apply(headers);
-                    } catch (Throwable e) {
-                        metadataApplier.fail(Status.UNAUTHENTICATED.withCause(e));
-                    }
-                }
-            });
-        }
-
-        @Override
-        public void thisUsesUnstableApi() {
-        }
-    }
 }

@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import spark.Spark;
-import x.hostname.service.HostnameUtils;
+import x.hostname.grpc.utils.HostnameUtils;
 
 public class HostnameHttpServer {
 
@@ -20,6 +20,7 @@ public class HostnameHttpServer {
                 return String.format("{\"hostname\":\"%s\"}%n", HostnameUtils.determineHostname());
             });
             logger.info("Listening on port {}", port);
+            Spark.awaitStop();
         } catch (Exception e) {
             logger.atError().withThrowable(e).log("Failed to start HTTP server");
             throw new RuntimeException(e);
