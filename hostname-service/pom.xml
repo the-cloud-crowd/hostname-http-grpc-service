@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>x.hostname</groupId>
@@ -86,7 +85,11 @@
             <configuration>
               <allowInsecureRegistries>true</allowInsecureRegistries>
               <to>
-                <image>localhost:5000/${project.artifactId}:${project.version}</image>
+                <image>${env.REGISTRY}/${env.REGISTRY_REPOSITORY}/${project.artifactId}:${project.version}</image>
+                <auth>
+                  <username>${env.REGISTRY_USERNAME}</username>
+                  <password>${env.REGISTRY_PASSWORD}</password>
+                </auth>
               </to>
               <jvmFlags>
                 <jvmFlag>-XX:InitialRAMPercentage=50.0</jvmFlag>
