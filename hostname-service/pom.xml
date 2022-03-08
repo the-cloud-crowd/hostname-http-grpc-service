@@ -79,7 +79,7 @@
           <execution>
             <phase>package</phase>
             <goals>
-              <goal>dockerBuild</goal>
+              <goal>build</goal>
             </goals>
             <configuration>
               <allowInsecureRegistries>true</allowInsecureRegistries>
