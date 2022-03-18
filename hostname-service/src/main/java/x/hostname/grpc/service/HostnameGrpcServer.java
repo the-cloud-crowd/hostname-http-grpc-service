@@ -23,6 +23,7 @@ public final class HostnameGrpcServer {
             HealthStatusManager health = new HealthStatusManager();
             server = ServerBuilder.forPort(port)
                     .addService(new HostnameServiceImpl())
+                    .addService(new CounterServiceImpl())
                     .addService(ProtoReflectionService.newInstance())
                     .addService(health.getHealthService())
                     .build()

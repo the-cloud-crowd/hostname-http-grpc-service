@@ -2,7 +2,6 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "x.hostname.grpc.proto";
-option java_outer_classname = "HostnameProto";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";

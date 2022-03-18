@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>{{ .title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:100,300'>
+  <link rel='stylesheet' href='style.css'>
+
+  <script>
+    window.console = window.console || function (t) { };
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+
+</head>
+
+<body translate="no">
+  <div id="main">
+    <div class="fof">
+      <h1 id="message">0</h1>
+    </div>
+  </div>
+
+  <script src="websocket.js"></script>
+</body>
+
+</html>

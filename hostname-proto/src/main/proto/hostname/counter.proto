@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "x.hostname.grpc.proto";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+package counter;
+
+service CounterService {
+  rpc connect(ConnectRequest) returns (stream CounterUpdate);
+  rpc disconnect(ConnectRequest) returns (CounterUpdate);
+  rpc countUp(google.protobuf.Empty) returns (CounterUpdate);
+  rpc countDown(google.protobuf.Empty) returns (CounterUpdate);
+}
+
+message ConnectRequest {
+  string sessionId = 1;
+}
+
+message CounterUpdate {
+  int64 count = 1;
+}
