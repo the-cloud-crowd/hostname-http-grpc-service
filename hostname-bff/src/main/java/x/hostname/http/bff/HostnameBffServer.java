@@ -82,7 +82,7 @@ public class HostnameBffServer {
                     HostnameReply reply = blockingStub.getHostname(Empty.getDefaultInstance());
                     ctx.json(new BffResponsePojo(reply.getHostname(), bff));
                 } catch (StatusRuntimeException e) {
-                    logger.atError().withThrowable(e).log("Backend request failed");
+                    logger.atError().withThrowable(e).log("GetHostname request failed");
                     switch (e.getStatus().getCode()) {
                     case ALREADY_EXISTS:
                         throw new ConflictResponse(e.getMessage());
@@ -114,6 +114,15 @@ public class HostnameBffServer {
 
                     try {
                         CounterServiceGrpc.CounterServiceStub stub = CounterServiceGrpc.newStub(channel);
+
+                        Optional<String> userId = Optional.ofNullable(ctx.header("X-UserId"));
+                        if (userId.isPresent()) {
+                            logger.info("Add user id header: {}", userId.get());
+                            stub = stub.withCallCredentials(new UserIdCallCredential(userId.get()));
+                        } else {
+                            logger.warn("User id header missing");
+                        }
+
                         stub.connect(ConnectRequest.newBuilder().setSessionId(sessionId).build(),
                                 new StreamObserver<CounterUpdate>() {
 
@@ -133,7 +142,7 @@ public class HostnameBffServer {
                                     }
                                 });
                     } catch (StatusRuntimeException e) {
-                        logger.atError().withThrowable(e).log("Backend request failed");
+                        logger.atError().withThrowable(e).log("Connect request failed");
                     }
 
                 });
@@ -142,12 +151,23 @@ public class HostnameBffServer {
                     String sessionId = sessions.remove(ctx);
                     logger.info("WS onClose {}", sessionId);
 
-                    try {
-                        CounterServiceGrpc.CounterServiceBlockingStub blockingStub = CounterServiceGrpc
-                                .newBlockingStub(channel);
-                        blockingStub.disconnect(ConnectRequest.newBuilder().setSessionId(sessionId).build());
-                    } catch (StatusRuntimeException e) {
-                        logger.atError().withThrowable(e).log("Backend request failed");
+                    if (sessionId != null) {
+                        try {
+                            CounterServiceGrpc.CounterServiceBlockingStub blockingStub = CounterServiceGrpc
+                                    .newBlockingStub(channel);
+
+                            Optional<String> userId = Optional.ofNullable(ctx.header("X-UserId"));
+                            if (userId.isPresent()) {
+                                logger.info("Add user id header: {}", userId.get());
+                                blockingStub = blockingStub.withCallCredentials(new UserIdCallCredential(userId.get()));
+                            } else {
+                                logger.warn("User id header missing");
+                            }
+
+                            blockingStub.disconnect(ConnectRequest.newBuilder().setSessionId(sessionId).build());
+                        } catch (StatusRuntimeException e) {
+                            logger.atError().withThrowable(e).log("Disconnect request failed");
+                        }
                     }
                 });
                 ws.onMessage(ctx -> {
